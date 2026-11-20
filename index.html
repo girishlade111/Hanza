@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Girish Lade — LadeStack® Portfolio</title>
+    <meta
+      name="description"
+      content="Swiss editorial portfolio and product showcase of Girish Balaso Lade, UI/UX designer, full-stack developer, and founder of LadeStack."
+    />
+    <meta property="og:title" content="Girish Lade — LadeStack® Portfolio" />
+    <meta
+      property="og:description"
+      content="Swiss editorial portfolio and product showcase of Girish Balaso Lade, UI/UX designer, full-stack developer, and founder of LadeStack."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('ladestack-theme');
+          var theme = stored === 'dark' || stored === 'light' ? stored : 'light';
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-[#F7F5F2] text-[#121212] dark:bg-[#111111] dark:text-white antialiased selection:bg-[#FF6044] selection:text-white">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

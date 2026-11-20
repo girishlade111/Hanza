@@ -1,0 +1,103 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-bone: #F7F5F2;
+  --color-obsidian: #111111;
+  --color-onyx: #181818;
+  --color-charcoal: #121212;
+  --color-coral: #FF6044;
+  --color-coral-hover: #FF755C;
+  --color-live: #3DB15E;
+}
+
+:root {
+  --canvas: #F7F5F2;
+  --surface: #FFFFFF;
+  --ink: #121212;
+  --ink-muted: rgba(18, 18, 18, 0.65);
+  --hairline: rgba(18, 18, 18, 0.1);
+  --accent: #FF6044;
+}
+
+.dark {
+  --canvas: #111111;
+  --surface: #181818;
+  --ink: #FFFFFF;
+  --ink-muted: rgba(255, 255, 255, 0.65);
+  --hairline: rgba(255, 255, 255, 0.12);
+  --accent: #FF6044;
+}
+
+@layer base {
+  html {
+    background-color: var(--canvas);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    scroll-behavior: auto;
+  }
+
+  body {
+    background-color: var(--canvas);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  .dark body {
+    letter-spacing: 0.005em;
+  }
+
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid #FF6044;
+    outline-offset: 2px;
+  }
+}
+
+.hairline-border {
+  border-color: var(--hairline);
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.editorial-dropcap::first-letter {
+  float: left;
+  font-size: 3.5rem;
+  line-height: 0.85;
+  font-weight: 800;
+  padding-right: 0.65rem;
+  padding-top: 0.25rem;
+  color: #FF6044;
+}
+
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 28s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+  }
+}

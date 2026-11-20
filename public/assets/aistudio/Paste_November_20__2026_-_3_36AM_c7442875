@@ -1,0 +1,659 @@
+# MASTER PROMPT: PIXEL-PERFECT RECREATION OF "HANZA" FRAMER MOTION TEMPLATE
+# TARGET: COMPLETE PRODUCTION-GRADE MULTI-PAGE PORTFOLIO FOR GIRISH LADE (FOUNDER OF LADESTACK)
+# ROLE: 50-Year Senior Principal UI/UX Architect, Master Design Systems Engineer & Full-Stack Next.js/Framer Motion Specialist
+
+You are an elite, world-class Principal UI/UX Architect, Senior Design Systems Engineer, and Full-Stack Next.js / TypeScript / Framer Motion specialist with the equivalent of five decades of software design mastery. 
+
+Your objective is to generate, architect, and code an exhaustive, pixel-perfect, fully responsive, multi-page web application replicating the exact aesthetic, micro-interactions, layout physics, and typography of the renowned editorial Framer portfolio template "Hanza" (https://hanza-template.framer.website/).
+
+---
+
+### NON-NEGOTIABLE CORE DIRECTIVES:
+1. **ZERO FRAMER BRANDING & PROMOTIONAL ELEMENTS**:
+   - Completely strip out all Framer watermarks, "Made in Framer" floating badges, "Buy for $99", "More Templates", and third-party commercial links.
+   - The final site must be a pristine, high-performance, independent engineering portfolio representing Girish Lade and his ecosystem LadeStack.
+2. **AUTHENTIC USER CONTENT INJECTION (NO DUMMY TEXT)**:
+   - Replace every placeholder, mock bio, and fake case study with the verified profile of **Girish Balaso Lade**, his engineering background (Mechanical Engineering to Software), his brand **LadeStack**, and his 9 shipped software products/tools.
+3. **EXTENSIVE FRAMER MOTION & SPRING PHYSICS**:
+   - Framer Motion must power the entire application: layout animations, inertial smooth scroll synchronization (Lenis), page transitions, staggered scroll reveals, accordion heights, filter tab pill sliders (`layoutId`), magnetic cursor interactions, and a full-screen sliding menu drawer.
+4. **SWISS EDITORIAL DESIGN SYSTEM**:
+   - 1px hairline architectural grid borders (`border-[1px]`), high-contrast neo-grotesque typography (`Geist Sans` / `Inter`), uppercase monospace micro-labels (`Geist Mono`), tight letter-spacing (`tracking-[-0.04em]`), square portrait containers with electric coral accents, and asymmetric two-column editorial layouts.
+5. **FULL MULTI-PAGE ARCHITECTURE (10 DEDICATED ROUTES)**:
+   - `/` (Home Master Showcase)
+   - `/portfolio` (Case Studies & Product Catalog)
+   - `/portfolio/[slug]` (Dynamic Case Study Deep-Dive)
+   - `/about` (Extended Biography, Engineering Journey, Philosophy, Metrics & Services)
+   - `/contact` (Interactive Inquiries, Availability Badge & Quick Answers FAQ)
+   - `/blog` (Design Stories & Technical Insights Index with Category Filters)
+   - `/blog/[slug]` (Dynamic Long-Form Editorial Article Page)
+   - `/404` (Custom Swiss-Grid Page Not Found Screen)
+   - `/terms` (Terms of Service with Split-Sidebar Layout)
+   - `/privacy` (Privacy Policy with Split-Sidebar Layout)
+6. **DUAL-THEME SUPPORT (LIGHT & DARK)**:
+   - Full light theme (`#F7F5F2` bone background) and dark theme (`#111111` obsidian background) with zero flash on reload (`next-themes`).
+   - The signature contact footer is ALWAYS deep black on every page regardless of theme mode.
+7. **AI-GENERATED IMAGE DIRECTIVES**:
+   - Provide exact Midjourney / Flux prompts for all required portraits, editorial banners, project covers, and client avatars.
+
+---
+
+## 1. TECH STACK & SYSTEM DEPENDENCIES
+
+Scaffold the project using the modern web stack:
+- **Framework**: Next.js 15+ (App Router)
+- **Library**: React 19 / TypeScript (Strict Mode)
+- **Styling**: Tailwind CSS v3.4+
+- **Animation Engine**: `framer-motion` (v11+)
+- **Smooth Inertial Scrolling**: `lenis`
+- **Iconography**: `lucide-react` (stroke width 1.5px)
+- **Theming**: `next-themes` (attribute="class", defaultTheme="light")
+- **Form Handling**: `react-hook-form` + `zod`
+- **Celebration Feedback**: `canvas-confetti`
+
+```bash
+npx create-next-app@latest girish-lade-portfolio --typescript --tailwind --app --eslint --src-dir --import-alias "@/*"
+cd girish-lade-portfolio
+npm install framer-motion lenis lucide-react next-themes react-hook-form zod clsx tailwind-merge canvas-confetti
+npm install -D @types/canvas-confetti
+```
+
+---
+
+## 2. REVERSE-ENGINEERED DESIGN SYSTEM & DESIGN TOKENS
+
+### A. Chromatic Architecture
+Configure Tailwind CSS custom properties (`tailwind.config.ts` and `globals.css`):
+- **Light Theme Tokens**:
+  - Background Canvas: `#F7F5F2` (Warm Sand / Bone White)
+  - Card & Surface: `#FFFFFF` (Pristine White)
+  - Primary Typography: `#121212` (Deep Charcoal Black)
+  - Muted Typography: `rgba(18, 18, 18, 0.65)` (Editorial Muted Slate)
+  - Architectural Borders: `rgba(18, 18, 18, 0.08)` (1px Hairline Slate)
+- **Dark Theme Tokens**:
+  - Background Canvas: `#111111` (Matte Obsidian)
+  - Card & Surface: `#181818` (Deep Onyx)
+  - Primary Typography: `#FFFFFF` (Pure White)
+  - Muted Typography: `rgba(255, 255, 255, 0.65)` (Silver Ash)
+  - Architectural Borders: `rgba(255, 255, 255, 0.10)` (1px Hairline White)
+- **Signature Accents**:
+  - Electric Coral: `#FF6044` (CTA button caps, status dots `▪`, active tabs, top borders)
+  - Live Status Green: `#3DB15E` (Availability badges)
+  - Universal Footer Surface: `#111111` / `#0D0D0D` (Constant deep black across both themes)
+
+### B. Typography Specifications
+- **Display & Headings**: `font-sans` (`Geist Sans` or `Inter`)
+  - Weights: 800 (ExtraBold) & 900 (Black).
+  - Letter-spacing: `tracking-[-0.04em]` to `tracking-[-0.05em]`.
+  - Format: Strictly `UPPERCASE` ending with a period (e.g., `CREATE YOUR NEXT WEBSITE WITH ME.`, `CASE STUDIES.`, `DESIGN, BUILD & LAUNCH.`).
+  - Duotone Header Style: Primary text in bold solid color; secondary phrase in muted grey outline or italic.
+- **Body Text**: `font-sans`, regular 400 & medium 500, `leading-[1.6]`.
+- **Micro-Labels & Metadata**: `font-mono` (`Geist Mono`), uppercase, `text-[11px]` to `text-[12px]`, `tracking-[0.08em]`, prefixed with a square red bullet (`▪`).
+
+### C. Swiss Hairline Grid Rules
+- Containers must utilize explicit 1px borders (`border-t`, `border-b`, `border-l`, `border-r`) to form an architectural magazine layout.
+- Split-column layout pattern:
+  - Desktop: 28% left column (sticky profile sidebar), 72% right column (reading/interaction pane).
+  - Mobile: Graceful collapse to a single structured column with full-bleed hairline dividers.
+
+---
+
+## 3. MASTER FRAMER MOTION ANIMATION SPECIFICATION
+
+Create `src/lib/animations.ts` containing the core physics variants:
+
+```typescript
+import { Variants, Transition } from "framer-motion";
+
+export const springPhysics: Transition = {
+  type: "spring",
+  stiffness: 260,
+  damping: 26,
+  mass: 0.9,
+};
+
+export const smoothEase: Transition = {
+  duration: 0.6,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+export const pageTransition: Variants = {
+  initial: { opacity: 0, y: 16 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] } },
+  exit: { opacity: 0, y: -12, transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } },
+};
+
+export const staggerContainer: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+  },
+};
+
+export const fadeInUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: smoothEase },
+};
+
+export const drawerVariants: Variants = {
+  closed: { x: "-100%", transition: { type: "spring", stiffness: 300, damping: 32 } },
+  open: { x: 0, transition: { type: "spring", stiffness: 280, damping: 28 } },
+};
+
+export const accordionVariants: Variants = {
+  collapsed: { height: 0, opacity: 0, overflow: "hidden", transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] } },
+  expanded: { height: "auto", opacity: 1, overflow: "hidden", transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } },
+};
+```
+
+---
+
+## 4. MASTER CONTENT & IDENTITY: GIRISH BALASO LADE
+
+Inject this exact verified data structure into `src/content/profile.ts`:
+
+```typescript
+export const personalInfo = {
+  fullName: "Girish Balaso Lade",
+  displayName: "Girish Lade",
+  brandName: "LADESTACK®",
+  headline: "UI/UX Designer · Full-Stack Developer · Founder of LadeStack",
+  secondaryHeadline: "Engineer by training. Product builder by choice.",
+  oneLinePositioning: "Independent developer and product designer building LadeStack, a growing ecosystem of browser-first developer utilities, AI-assisted workflows, and practical web applications.",
+  shortBio: "I'm Girish Lade, a UI/UX designer, full-stack developer, and founder of LadeStack. I combine an engineering mindset with design-led product development to build free, useful, and privacy-conscious tools for developers, students, and creators.",
+  extendedBio: "I'm an engineer by education and a software product builder by choice. My background in Mechanical Engineering shaped how I approach problems: identify constraints, understand the system, simplify the process, and iterate until the result becomes dependable. Over time, that problem-solving mindset found a new outlet in software engineering, UI/UX design, and product architecture. Today, I design and develop modern websites, full-stack applications, browser-based utilities, and experimental AI-powered developer tools under LadeStack.",
+  location: "Pune, Maharashtra, India",
+  email: "admin@ladestack.in",
+  brandUrl: "https://ladestack.in/",
+  availability: "2 SLOTS AVAILABLE / Q2 2026",
+  socials: {
+    github: "https://github.com/girishlade111",
+    linkedin: "https://www.linkedin.com/in/girish-lade/",
+    instagram: "https://www.instagram.com/girish_lade_/",
+    codepen: "https://codepen.io/Girish-Lade-the-looper",
+  },
+  metrics: [
+    { value: "10+", label: "Products Shipped", note: "Developer tools & web apps" },
+    { value: "100%", label: "Client-Side Privacy", note: "Zero forced cloud uploads" },
+    { value: "9+", label: "Multilingual Locales", note: "Astro internationalization" },
+    { value: "33+", label: "Interactive Games", note: "Live on GameHub" },
+  ],
+  services: [
+    {
+      id: "01",
+      title: "WEBSITES & WEB APPS",
+      description: "Full-stack development with Next.js, React, and Astro. Highly performant, accessible web applications with resilient architecture, responsive layouts, and elegant interaction design."
+    },
+    {
+      id: "02",
+      title: "UI/UX & DESIGN SYSTEMS",
+      description: "Swiss-inspired editorial interfaces, modular component tokens, typography systems, Figma-to-code translations, and micro-interactions that communicate clarity and intent."
+    },
+    {
+      id: "03",
+      title: "BROWSER-FIRST DEVELOPER TOOLS",
+      description: "Client-side computing using Monaco Editor, WebContainers, Web Workers, Canvas APIs, and WebAssembly to eliminate setup overhead and preserve local privacy."
+    },
+    {
+      id: "04",
+      title: "AI-AUGMENTED APPS & WORKFLOWS",
+      description: "Transparent Bring-Your-Own-Key (BYOK) multi-LLM integrations, agentic workflows, prompt engineering, and intelligent documentation utilities designed with user privacy in mind."
+    }
+  ],
+  projects: [
+    {
+      slug: "ladestack",
+      name: "LadeStack Platform",
+      tagline: "Brand platform and central developer-tool directory",
+      category: "DEVELOPER TOOLS",
+      year: "2024 - 2026",
+      url: "https://ladestack.in/",
+      github: "https://github.com/girishlade111",
+      role: "Founder & Full-Stack Architect",
+      tech: ["Astro", "TypeScript", "Tailwind CSS", "Hreflang i18n", "Static Generation"],
+      overview: "LadeStack is the central home of an independent developer-tool ecosystem. Built with Astro, it delivers high-performance static pages across 9 international languages, providing low-friction discovery for developer utilities.",
+      useCases: [
+        "Discover targeted tools without bloated onboarding friction.",
+        "Learn browser-first computing architectures through technical documentation.",
+        "Collaborate with an independent software creator."
+      ],
+      featured: true,
+    },
+    {
+      slug: "gb-coder",
+      name: "GB Coder",
+      tagline: "Browser-based IDE and code studio with Monaco & WebContainers",
+      category: "DEVELOPER TOOLS",
+      year: "2025 - 2026",
+      url: "https://code.ladestack.in/",
+      github: "https://github.com/girishlade111/GB-CODER-PUBLIC-ALPHA",
+      role: "Creator & Architect",
+      tech: ["Monaco Editor", "WebContainers", "TypeScript", "IndexedDB", "ZIP Export"],
+      overview: "A browser-based development studio offering instant static prototyping (HTML/CSS/JS) and advanced Node.js execution via WebContainers directly in supported browsers. Zero cloud sign-up required for local prototyping.",
+      useCases: [
+        "Prototype UI components instantly without local dev environment setup.",
+        "Experiment with framework projects inside a sandboxed browser runtime.",
+        "Persist and export portable project archives locally."
+      ],
+      featured: true,
+    },
+    {
+      slug: "ls-pdf",
+      name: "LS PDF",
+      tagline: "17-in-1 privacy-first client-side PDF utility toolkit",
+      category: "DOCUMENT UTILITIES",
+      year: "2025 - 2026",
+      url: "https://pdf.ladestack.in/",
+      github: "https://github.com/girishlade111/LS-PDF",
+      role: "Creator & Maintainer",
+      tech: ["React", "TypeScript", "PDF.js", "pdf-lib", "Web Workers", "JSZip"],
+      overview: "A comprehensive in-browser PDF suite supporting 17 operations including merge, split, compress, rotate, and text extraction. All file operations execute on the user's hardware without server-side file uploads.",
+      useCases: [
+        "Organize, merge, and re-order PDF documentation packets.",
+        "Compress and prepare documents for strict email upload limits.",
+        "Process confidential files with complete client-side security."
+      ],
+      featured: true,
+    },
+    {
+      slug: "md2pdf",
+      name: "MD2PDF",
+      tagline: "Markdown to PDF publisher and technical book builder",
+      category: "DOCUMENT UTILITIES",
+      year: "2024 - 2026",
+      url: "https://md2pdf.ladestack.in/",
+      github: "https://github.com/girishlade111/ReadmePDF",
+      role: "Product Owner & Developer",
+      tech: ["Astro", "Markdown/GFM", "DOMPurify", "KaTeX", "pdf-lib", "Print CSS"],
+      overview: "A developer-centric publishing utility that turns GitHub READMEs, local markdown notes, and multi-file repositories into professionally formatted books, complete with cover pages, syntax highlighting, and table of contents.",
+      useCases: [
+        "Convert technical READMEs into shareable offline deliverables.",
+        "Assemble multi-chapter documentation books from GitHub repositories.",
+        "Typeset academic and mathematical equations with KaTeX."
+      ],
+      featured: true,
+    },
+    {
+      slug: "bharat-land-converter",
+      name: "Bharat Land Converter",
+      tagline: "Indian regional land area measurement converter",
+      category: "MEASUREMENT",
+      year: "2025",
+      url: "https://land.ladestack.in/",
+      github: "https://github.com/girishlade111",
+      role: "Product Creator",
+      tech: ["TypeScript", "Responsive UI", "Regional Formula Engine"],
+      overview: "A specialized measurement tool mapping traditional Indian land units (Guntha, Bigha, Biswa, Kattha, Dhur, Kanal, Marla, Cent) to modern metric and imperial standards (Sq.Ft, Acres, Hectares).",
+      useCases: [
+        "Cross-compare regional land units across Indian state boundaries.",
+        "Understand varying district-level definitions of traditional units.",
+        "Perform rapid field calculations for engineering and surveying."
+      ],
+      featured: false,
+    },
+    {
+      slug: "swift-resume",
+      name: "Swift Resume",
+      tagline: "ATS-friendly browser resume builder with live A4 preview",
+      category: "CAREER TOOLS",
+      year: "2025",
+      url: "https://resume.ladestack.in/",
+      github: "https://github.com/girishlade111/swift-resume-builder",
+      role: "Creator",
+      tech: ["React", "TypeScript", "Print CSS", "Structured Resume Schema"],
+      overview: "A clean, form-based resume builder helping job seekers structure work history, technical proficiencies, and project portfolios into recruiter-friendly formats with instant live preview and PDF generation.",
+      useCases: [
+        "Draft a structured, professional resume in minutes.",
+        "Tailor content quickly for specific job opportunities.",
+        "Export clean, print-ready PDF files without account locks."
+      ],
+      featured: false,
+    },
+    {
+      slug: "ls-image-compressor",
+      name: "LS Image Compressor",
+      tagline: "Client-side image optimizer, resizer, and format converter",
+      category: "IMAGE UTILITIES",
+      year: "2025",
+      url: "https://img.ladestack.in/",
+      github: "https://github.com/girishlade111/Image-Compressor",
+      role: "Creator",
+      tech: ["HTML5 Canvas", "Web Workers", "WebP/JPEG", "EXIF Handling"],
+      overview: "An on-device image compression tool enabling dimension resizing, quality target calibration, and batch WebP conversion directly inside browser memory.",
+      useCases: [
+        "Optimize web assets for improved Core Web Vitals.",
+        "Resize photos for strict portal upload boundaries.",
+        "Strip EXIF metadata on-device before public sharing."
+      ],
+      featured: false,
+    },
+    {
+      slug: "gamehub",
+      name: "GameHub",
+      tagline: "Catalog of 33 instant-play browser mini-games",
+      category: "GAMES",
+      year: "2025",
+      url: "https://games-ladestack.vercel.app/",
+      github: "https://github.com/girishlade111/games-ladestack",
+      role: "Developer",
+      tech: ["Next.js 15", "React 19", "Tailwind CSS", "Canvas Game Loops"],
+      overview: "An entertainment portal demonstrating high-frequency frontend rendering, dynamic code splitting, and canvas animation loops across 33 classic arcade and puzzle games.",
+      useCases: [
+        "Play casual games during quick study breaks.",
+        "Practice logic and reaction skills with instant load times.",
+        "Reference interactive canvas rendering in React."
+      ],
+      featured: false,
+    },
+    {
+      slug: "ladestack-drive",
+      name: "LadeStack Drive",
+      tagline: "Privacy-conscious cloud storage and digital organization concept",
+      category: "FILE MANAGEMENT",
+      year: "2025 - 2026",
+      url: "https://drive.ladestack.in/",
+      github: "https://github.com/girishlade111",
+      role: "Architect",
+      tech: ["Web Storage", "React", "Supabase concepts"],
+      overview: "A prototype exploring friction-free file grouping, personal asset management, and secure private link sharing.",
+      useCases: [
+        "Organize project files and exported documents in a clean tree.",
+        "Access digital tools and assets across devices.",
+        "Explore scoped asset-sharing workflows."
+      ],
+      featured: false,
+    }
+  ],
+  faq: [
+    {
+      q: "01. WHAT SERVICES DO YOU PROVIDE?",
+      a: "I provide end-to-end full-stack web development, modern Swiss/editorial UI/UX design, custom browser-based developer utilities (Monaco, WebContainers, WebAssembly), and transparent AI API integrations."
+    },
+    {
+      q: "02. WHAT IS YOUR APPROACH TO USER PRIVACY?",
+      a: "I practice 'Privacy by Architecture.' Where technically practical, computation and document transformation happen on the user's device via client-side libraries, Web Workers, and IndexedDB rather than forcing arbitrary cloud uploads."
+    },
+    {
+      q: "03. HOW DOES A MECHANICAL ENGINEERING BACKGROUND BENEFIT SOFTWARE?",
+      a: "Mechanical engineering instills a strict discipline of constraint analysis, system tolerances, physical trade-offs, and iterative refinement. In software, this translates into clean system architecture, lean bundles, and reliable UX."
+    },
+    {
+      q: "04. WHAT IS YOUR CORE TECHNICAL STACK?",
+      a: "Next.js 15, React 19, TypeScript, Astro, Tailwind CSS, Framer Motion, Monaco Editor, WebContainers, Node.js, and modern browser storage APIs."
+    },
+    {
+      q: "05. ARE YOU AVAILABLE FOR CONTRACT OR PRODUCT WORK?",
+      a: "Yes. I accept select contract engagements for founders, startups, and teams needing high-polish web applications, developer-first tools, and design system engineering."
+    }
+  ],
+  articles: [
+    {
+      slug: "building-browser-ides-monaco-webcontainers",
+      title: "Building Browser-Based IDEs With Monaco & WebContainers",
+      category: "DEVELOPER TOOLS",
+      date: "MAY 20, 2026",
+      readTime: "7 MIN READ",
+      excerpt: "How we eliminated local dev server setup by running Node.js and code compilation directly inside browser memory."
+    },
+    {
+      slug: "privacy-first-web-apps-client-side-paradigm",
+      title: "Designing Privacy-First Web Apps: The Client-Side Paradigm",
+      category: "ARCHITECTURE",
+      date: "MAY 12, 2026",
+      readTime: "5 MIN READ",
+      excerpt: "Why modern web tools should process user documents on the CPU they already own instead of sending them to unknown servers."
+    },
+    {
+      slug: "swiss-grid-crafting-brutalist-editorial-interfaces",
+      title: "The Swiss Grid: Crafting Brutalist & Editorial Interfaces",
+      category: "UI/UX DESIGN",
+      date: "APR 28, 2026",
+      readTime: "6 MIN READ",
+      excerpt: "Using strict 1px hairline borders, high-contrast typography, and deliberate whitespace to craft timeless software interfaces."
+    },
+    {
+      slug: "from-mechanical-engineering-to-software-architecture",
+      title: "From Mechanical Engineering to Software Architecture",
+      category: "CAREER & CRAFT",
+      date: "APR 15, 2026",
+      readTime: "8 MIN READ",
+      excerpt: "How systems thinking, mechanical tolerances, and structural constraints inform reliable software systems."
+    }
+  ]
+};
+```
+
+---
+
+## 5. COMPLETE PAGE-BY-PAGE BLUEPRINTS & SPECIFICATIONS
+
+### A. Navigation & Universal Shell Components
+
+#### 1. Header (`src/components/layout/Header.tsx`)
+- **Left**:
+  - `:: MENU` toggle button: 4-dot diamond star icon + text `MENU` (opens the slide-in drawer).
+  - Wordmark `LADESTACK®` in 900-weight display type linking to `/`.
+- **Right**:
+  - Theme Toggle icon button (Sun/Moon with smooth rotational flip).
+  - Avatar thumbnail: 36x36px square portrait of Girish with hairline border.
+  - Primary CTA Pill: High-contrast button `START PROJECT / CONTACT` featuring an electric coral block cap containing an arrow (`↗`).
+
+#### 2. Full-Screen Slide-in Menu Drawer (`src/components/layout/MenuDrawer.tsx`)
+- Animated via Framer Motion `drawerVariants`:
+  - Backdrop: `backdrop-blur-md bg-black/40` with smooth fade.
+  - Left Pane (Navigation Links):
+    - Staggered entrance for: `HOME` (`/`), `PORTFOLIO` (`/portfolio`), `ABOUT` (`/about`), `CONTACT` (`/contact`), `BLOG` (`/blog`), `404` (`/404`).
+    - Huge uppercase typography with red underline on hover.
+    - Bottom Box: Square photo of Girish, red dot + `GIRISH LADE`, `UI/UX DESIGNER & DEVELOPER`, `PUNE, INDIA`, and social links.
+  - Right Pane (Live Hover Preview on Desktop):
+    - Displays dynamic featured cards (e.g., `GB Coder` and `LS PDF`) that animate with slight scale and crossfade when menu items are hovered.
+
+#### 3. Universal Signature Dark Footer (`src/components/layout/Footer.tsx`)
+*(Must be appended to every single route!)*
+- Constant dark background (`#111111`) with 1px architectural grid dividing lines.
+- **Left Column**:
+  - Square author portrait with electric coral top border (`border-t-2 border-[#FF6044]`).
+  - Button: `GET IN TOUCH / CONTACT` with coral arrow cap.
+  - Metadata: `▪ GIRISH LADE`, `PROFESSION / UI/UX DESIGNER & DEVELOPER`, `LOCATION / PUNE, MAHARASHTRA, INDIA`.
+  - Social icons row (GitHub, LinkedIn, Instagram, CodePen).
+  - Giant display footer brandmark: `LADESTACK®` in 900-weight font.
+  - Credits: `© 2026 LADESTACK®. ALL RIGHTS RESERVED. DESIGNED & BUILT BY GIRISH LADE.`
+- **Right Column**:
+  - Section label: `▪ CONTACT`.
+  - Massive Headline: `CREATE YOUR NEXT WEBSITE WITH ME.`
+  - Pitch paragraph: `FROM FIRST CONCEPT TO FINAL BUILD, I CREATE WEBSITES WITH CLEAR STRUCTURE & SMOOTH INTERACTIONS.`
+  - Availability pill: `2 SLOTS AVAILABLE / Q2 2026` with 2 green & 2 grey dots.
+  - Interactive Form:
+    - `▪ YOUR NAME` (Input)
+    - `▪ EMAIL ADDRESS` (Input)
+    - `▪ HOW CAN I HELP?` (Textarea)
+    - Submit Button: Full-width coral block (`bg-[#FF6044] hover:bg-[#ff755c] font-mono uppercase py-4 px-6 flex justify-between items-center text-white`). Triggers confetti burst on submit.
+    - Terms notice: `By submitting, you agree to our Terms of Service and Privacy Policy.`
+  - Navigation matrix: Quick links to all main pages.
+  - Direct Contact: `Pune, Maharashtra, India` · Huge email `ADMIN@LADESTACK.IN`.
+  - Legal links: `TERMS OF SERVICE` (`/terms`) and `PRIVACY POLICY` (`/privacy`).
+
+---
+
+### B. Route Specifications
+
+#### Route 1: Home (`src/app/page.tsx`)
+- **Hero Banner**: Full-width cinematic header with abstract visual backdrop, giant typographic overlay `LADESTACK®`, and floating tag `FOUNDER · DESIGNER · BUILDER`.
+- **Intro Split Section**:
+  - Left: Girish's square portrait with coral accent, location, social links.
+  - Right: Headline `A CLEAR DIRECTION.` + Mission statement + 4-column metrics grid (`10+`, `100%`, `9+`, `33+`).
+- **Case Studies Grid**:
+  - Headline `CASE STUDIES.` + Filter pills.
+  - 4 featured project cards in alternating full-bleed editorial layouts: **GB Coder**, **LS PDF**, **MD2PDF**, and **Bharat Land Converter**.
+  - Project cards feature high-res covers, tags, tech stacks, and `VIEW PROJECT ->` CTA.
+- **Services Accordion ("WHAT I CREATE.")**:
+  - 4 collapsible rows with spring height animation (`01. WEBSITES`, `02. UI/UX`, `03. DEV TOOLS`, `04. AI APPS`).
+  - Right sticky card: `PLAN YOUR NEXT PROJECT WITH ME.` + avatar + contact button.
+- **Pricing Packages**:
+  - 3 clean editorial tiers: `STARTER PROTOTYPE`, `FULL PRODUCT BUILD`, and `CUSTOM DEV TOOLS`.
+  - Deliverables list with checkmarks and direct CTA links.
+- **Client Stories Grid**: Asymmetric masonry grid with 5-star coral ratings and authentic peer reviews.
+- **FAQ Accordion**: 5 expandable questions from `personalInfo.faq`.
+- **Design Stories**: 4 horizontal editorial cards linking to `/blog`.
+- **Universal Dark Footer**.
+
+#### Route 2: Portfolio (`src/app/portfolio/page.tsx`)
+- **Header**: Display title `CASE STUDIES.` + Sub-headline describing the full catalog.
+- **Category Filter Bar**: Animated pill slider (`layoutId="portfolioPills"`) filtering `ALL`, `DEVELOPER TOOLS`, `DOCUMENT UTILITIES`, `MEASUREMENT`, `GAMES`.
+- **Project Grid**: All 9 projects from `personalInfo.projects` rendered as responsive editorial cards with hover zoom and metadata tags.
+- **Universal Dark Footer**.
+
+#### Route 3: Dynamic Case Study (`src/app/portfolio/[slug]/page.tsx`)
+- **Hero**: Breadcrumb `PORTFOLIO / [PROJECT_NAME]`, huge title, year, category, and action buttons (`VISIT LIVE APP ↗`, `VIEW GITHUB ↗`).
+- **Metadata Matrix**: 4-column hairline grid showing Role, Timeline, Tech Stack, and Architecture.
+- **Three-Act Structure**:
+  - **Act I: The Problem & Context**: Why existing alternatives are bloated or privacy-invasive.
+  - **Act II: The Architectural Solution**: How Girish engineered client-side workflows, Monaco, or Canvas loops.
+  - **Act III: Three Key Use Cases**: Comprehensive breakdown of the 3 primary use cases from the master file.
+- **Next Project Navigator**: Fluid link to the next case study.
+- **Universal Dark Footer**.
+
+#### Route 4: About (`src/app/about/page.tsx`)
+- **Hero**: `DESIGN, BUILD & LAUNCH.` + Large square portrait of Girish with typographic overlay.
+- **Ecosystem Marquee**: Infinite smooth scrolling logo ribbon of technologies (TypeScript, Next.js, Astro, Monaco, WebContainers, Tailwind, Framer Motion).
+- **"A CLEAR DIRECTION." Detailed Bio**:
+  - 3 narrative sections detailing the journey from Mechanical Engineering at SVERI's College to founding LadeStack and building browser-first tools.
+- **Metrics Grid**: The 4 qualitative highlights.
+- **Services Accordion**: The 4 core service disciplines.
+- **Client Stories**: Review cards.
+- **Universal Dark Footer**.
+
+#### Route 5: Contact (`src/app/contact/page.tsx`)
+- **Header**: `LET'S BUILD YOUR WEBSITE.` + `▪ 2 SLOTS AVAILABLE / Q2 2026`.
+- **Interactive Form Component**: Live form with validation, active border states, and confetti on submit.
+- **"QUICK ANSWERS." FAQ**: Complete 5-question accordion.
+- **Universal Dark Footer**.
+
+#### Route 6: Blog Index (`src/app/blog/page.tsx`)
+- **Header**: `DESIGN STORIES.` + Subtitle on software design and architecture.
+- **Category Filter Tabs**: Filter essays by `ALL`, `DEVELOPER TOOLS`, `ARCHITECTURE`, `UI/UX`, `CAREER`.
+- **Card Grid**: 8 editorial cards with dates, grainy analog covers, category pills, titles, and `READ ARTICLE ->`.
+- **Universal Dark Footer**.
+
+#### Route 7: Dynamic Article (`src/app/blog/[slug]/page.tsx`)
+- **Header**: Category tag, date, reading time, article title, and author byline.
+- **Split Layout**:
+  - Left (Sticky): Table of contents with scroll-spy active state and social sharing.
+  - Right: Rich typography, drop caps, syntax-highlighted code blocks, and pull quotes.
+- **Related Articles**: 3 preview cards.
+- **Universal Dark Footer**.
+
+#### Route 8: 404 Error (`src/app/404/page.tsx` & `src/app/not-found.tsx`)
+- **Split Layout**:
+  - Left: Sticky profile sidebar with Girish's photo and contact details.
+  - Right: Sub-label `▪ 404 ERROR`, giant heading `PAGE NOT FOUND.`, subtext `SOMETHING WENT OFF TRACK...`, and coral arrow button `GO BACK / HOME`.
+- **Universal Dark Footer**.
+
+#### Routes 9 & 10: Legal Pages (`src/app/terms/page.tsx` & `src/app/privacy/page.tsx`)
+- **Split Layout**:
+  - Left: Sticky profile sidebar.
+  - Right: Numbered editorial sections reflecting LadeStack's privacy-first values (no invasive trackers, client-side data handling, local storage persistence).
+- **Universal Dark Footer**.
+
+---
+
+## 6. AI IMAGE GENERATION PROMPTS (MIDJOURNEY / FLUX / DALL-E)
+
+Use these production prompts to generate the assets:
+
+### A. Author Portrait (Girish Lade)
+```text
+Editorial studio portrait of an intelligent 24-year-old Indian male software engineer and product designer, wearing modern minimal round optical glasses, a clean beige overshirt jacket over a crisp white crewneck t-shirt. Direct confident gaze into camera, subtle friendly smile. Sharp professional studio lighting, neutral warm grey studio backdrop, 35mm film aesthetic, crisp focus, hyper-realistic, Hasselblad H6D-100c medium format photography, 8k resolution, cinematic color grading --ar 1:1 --style raw
+```
+
+### B. Project Showcase Covers
+1. **GB Coder Cover**:
+   ```text
+   Futuristic minimalist code editor workstation interface glowing on an ultra-wide monitor, dark room, amber neon accents, geometric reflections, brutalist architectural interior, cinematic photography, depth of field --ar 16:9 --style raw
+   ```
+2. **LS PDF Cover**:
+   ```text
+   Minimalist geometric composition of floating translucent glass paper sheets and glowing red document icons, architectural shadows, warm sand background, clean studio lighting, 3D abstract render in Octane --ar 16:9
+   ```
+3. **MD2PDF Cover**:
+   ```text
+   Vintage typography press meeting modern digital tablet, clean Swiss layout, mathematical equations floating in crisp typography, soft morning light, editorial magazine aesthetic --ar 16:9
+   ```
+4. **Bharat Land Converter Cover**:
+   ```text
+   Aerial drone view of geometric agricultural fields and land plots in rural India, abstract architectural grid overlay, warm golden hour sunlight, fine art landscape photography --ar 16:9
+   ```
+
+### C. Blog Post Editorial Banners
+```text
+Cinematic, grainy 35mm analog film photograph, warm color palette, minimalist brutalist composition, Bauhaus influence, artistic shadows, moody lighting, subtle motion blur, editorial magazine cover quality --ar 4:3
+```
+
+---
+
+## 7. CODE REPOSITORY DIRECTORY STRUCTURE
+
+Scaffold the project with the following file tree:
+
+```
+src/
+├── app/
+│   ├── layout.tsx                # Root layout with Geist fonts, theme provider, Lenis scroll
+│   ├── template.tsx              # Framer Motion page entrance/exit transitions
+│   ├── page.tsx                  # Route 1: Home master showcase
+│   ├── portfolio/
+│   │   ├── page.tsx              # Route 2: Case studies catalog
+│   │   └── [slug]/page.tsx       # Route 3: Dynamic case study deep-dive
+│   ├── about/
+│   │   └── page.tsx              # Route 4: About story, metrics & services
+│   ├── contact/
+│   │   └── page.tsx              # Route 5: Contact form & FAQ
+│   ├── blog/
+│   │   ├── page.tsx              # Route 6: Blog index with category filter
+│   │   └── [slug]/page.tsx       # Route 7: Dynamic editorial article post
+│   ├── 404/page.tsx              # Route 8: Custom 404 error page
+│   ├── terms/page.tsx            # Route 9: Terms of Service
+│   ├── privacy/page.tsx          # Route 10: Privacy Policy
+│   └── not-found.tsx             # Next.js native 404 handler
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx            # Sticky header with :: MENU & theme toggle
+│   │   ├── MenuDrawer.tsx        # Framer Motion slide-in menu drawer with live preview cards
+│   │   └── Footer.tsx            # Signature universal dark contact & footer component
+│   ├── ui/
+│   │   ├── Button.tsx            # Magnetic button with coral arrow indicator
+│   │   ├── Badge.tsx             # Monospace category tag with red dot
+│   │   ├── Accordion.tsx         # Framer Motion animated disclosure component
+│   │   └── ThemeToggle.tsx       # Seamless dark/light toggle
+│   └── home/
+│       ├── HeroBanner.tsx
+│       ├── IntroSection.tsx
+│       ├── CaseStudiesGrid.tsx
+│       ├── ServicesAccordion.tsx
+│       ├── PricingTiers.tsx
+│       ├── Testimonials.tsx
+│       └── FAQSection.tsx
+├── content/
+│   └── profile.ts                # Verified typed data for Girish Lade & LadeStack
+├── lib/
+│   ├── animations.ts             # Framer Motion transition variants & spring settings
+│   └── utils.ts                  # cn() class utility
+├── providers/
+│   ├── smooth-scroll.tsx         # Lenis smooth inertial scrolling wrapper
+│   └── theme-provider.tsx        # next-themes wrapper
+├── public/
+│   └── images/                   # Generated portraits, covers & project mockups
+└── styles/
+    └── globals.css               # Tailwind directives & CSS custom properties
+```
+
+---
+
+## 8. STEP-BY-STEP EXECUTION INSTRUCTIONS
+
+1. **Complete Implementation**: Deliver fully functional code without placeholder stubs (`// TODO: implement`). Write every component, form handler, page route, and animation variant in full.
+2. **Dual-Theme Verification**: Verify that light mode renders with the warm bone background (`#F7F5F2`) and rich black text, while dark mode renders with the matte obsidian background (`#111111`) and white text. The footer must remain deep black in both modes.
+3. **Responsive Breakpoint Fidelity**: Ensure fluid scaling across mobile (`<768px`), tablet (`768px-1024px`), and desktop (`>1024px`). Ensure mobile navigation opens the full-screen drawer smoothly with touch targets > 44px.
+4. **Framer Motion Performance**: Maintain 60fps smooth spring transitions without layout jank using `transform` and `opacity` properties.
+
+Begin executing and generating the complete codebase now.
